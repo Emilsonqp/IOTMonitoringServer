@@ -37,8 +37,8 @@ def analyze_data():
         alert = False
 
         variable = item["measurement__name"]
-        max_value = item["measurement__max_value"] or 0
-        min_value = item["measurement__min_value"] or 0
+        max_value = item["measurement__max_value"]
+        min_value = item["measurement__min_value"]
 
         country = item['station__location__country__name']
         state = item['station__location__state__name']
