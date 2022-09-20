@@ -37,8 +37,9 @@ def analyze_data():
         alert = False
 
         variable = item["measurement__name"]
-        max_value = item["measurement__max_value"]
-        min_value = item["measurement__min_value"]
+        max_value = item["measurement__max_value"] or 0
+        min_value = item["measurement__min_value"] or 0
+        avg_value = item["check_value"] or 0
 
         country = item['station__location__country__name']
         state = item['station__location__state__name']
@@ -50,7 +51,7 @@ def analyze_data():
                 alert = True
 
         if alert:
-            message = "ALERT {} {} {}".format(variable, min_value, max_value)
+            message = "ALERT {} {}".format(variable, avg_value)
             topic = '{}/{}/{}/{}/in'.format(country, state, city, user)
             print(datetime.now(), "Sending alert to {} {}".format(topic, variable))
             print("el mensaje es:" + message)
