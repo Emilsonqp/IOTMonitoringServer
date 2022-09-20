@@ -40,7 +40,7 @@ def on_message(client: mqtt.Client, userdata, message: mqtt.MQTTMessage):
                 unit = utils.get_units(str(variable).lower())
                 variable_obj = utils.get_or_create_measurement(variable, unit)
                 sensor_obj = utils.get_or_create_station(user_obj, location_obj)
-                print("variable: " + variable + " sensor_obj: " + sensor_obj + " variable_obj: " + variable_obj + " time: " + time)
+                print("variable: " + variable + " sensor_obj: " + str(sensor_obj) + " variable_obj: " + str(variable_obj) + " time: " + time)
                 utils.create_data(
                     float(payloadJson[measure]), sensor_obj, variable_obj, time)
 
