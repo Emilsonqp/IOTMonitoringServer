@@ -35,12 +35,13 @@ def on_message(client: mqtt.Client, userdata, message: mqtt.MQTTMessage):
         location_obj = utils.get_or_create_location(city, state, country)
 
         for measure in payloadJson:
-            variable = measure
-            unit = utils.get_units(str(variable).lower())
-            variable_obj = utils.get_or_create_measurement(variable, unit)
-            sensor_obj = utils.get_or_create_station(user_obj, location_obj)
-            utils.create_data(
-                float(payloadJson[measure]), sensor_obj, variable_obj, time)
+            if measure == "ith":
+                variable = measure
+                unit = utils.get_units(str(variable).lower())
+                variable_obj = utils.get_or_create_measurement(variable, unit)
+                sensor_obj = utils.get_or_create_station(user_obj, location_obj)
+                utils.create_data(
+                    float(payloadJson[measure]), sensor_obj, variable_obj, time)
 
     except Exception as e:
         print('Ocurrió un error procesando el paquete MQTT', e)
